@@ -1,0 +1,14 @@
+transformations <- list(
+  "var" = list(
+    "sd" = function(x) return(x**2),
+    "prec" = function(x) return(1/x)
+  ),
+  "sd" = list(
+    "var" = function(x) return(sqrt(x)),
+    "prec" = function(x) return(1/(x^2))
+  ),
+  "prec" = list(
+    "var" = function(x) return(1/x),
+    "sd" = function(x) return(1/(x^2))
+  )
+)
