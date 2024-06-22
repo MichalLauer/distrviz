@@ -16,13 +16,10 @@ control_mean_ui <- function(namespace,
   )
 }
 
-control_mean_server <- function(namespace) {
+control_mean_server <- function(namespace, input = NULL, iv = NULL) {
   ns <- NS(namespace)
 
-  iv <- InputValidator$new()
   iv$add_rule("mean", sv_required())
-  iv$enable()
 
-  return(reactive(input$mean))
-
+  return(iv)
 }

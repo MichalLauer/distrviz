@@ -70,7 +70,6 @@ server <- function(input, output, session) {
   observe({
     # TODO: Distribution parser který ověří že existuje (ochrana proti code
     # injection)
-    # browser()
     distr <<- distributions[[input$distr_select]]
   }) |>
     bindEvent(input$distr_select)
@@ -104,5 +103,8 @@ server <- function(input, output, session) {
   })
 }
 
-shinyApp(ui, server)
+shinyApp(ui, server, options = list(
+  launch.browser = F,
+  port = 4816
+))
 

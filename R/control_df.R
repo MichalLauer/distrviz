@@ -25,6 +25,6 @@ control_df_server <- function(namespace, input, react_on = NULL) {
   iv$enable()
 
   # Return
-  return(reactive(input$df))
+  return(iv)
 
 }

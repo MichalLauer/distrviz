@@ -16,16 +16,15 @@ control_sd_ui <- function(namespace,
   )
 }
 
-control_sd_server <- function(namespace, input, react_on = NULL) {
+control_sd_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
-  iv <- InputValidator$new()
   iv$add_rule("sd", sv_gt(rhs = 0))
-  iv$enable()
 
   # Reactor
   local_others <- NULL
   observe({
+    req(iv$is_valid())
     others <- reactiveValuesToList(react_on)
     if (is.null(local_others)) {
       local_others <<- lapply(names(others), FUN = function(x) isolate(others[[x]]()))
@@ -54,6 +53,6 @@ control_sd_server <- function(namespace, input, react_on = NULL) {
     })
 
   # Return
-  return(reactive(input$sd))
+  return(iv)
 
 }

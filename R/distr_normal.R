@@ -27,44 +27,49 @@ distr_normal_server <- function(namespace) {
 
   moduleServer(namespace, function(input, output, session) {
 
-    # Mean Controller ----------------------------------------------------------
-    mean <- control_mean_server(namespace)
+    # Validators ---------------------------------------------------------------
+    iv <- InputValidator$new()
+    control_mean_server(namespace, input, iv)
+    control_variance_server(namespace, input, iv,
+                            react_on = reactiveValues("sd" = reactive(input$sd),
+                                                      "prec" = reactive(input$prec)))
+    control_sd_server(namespace, input, iv,
+                      react_on = reactiveValues("var" = reactive(input$var),
+                                                "prec" = reactive(input$prec)))
+    control_prec_server(namespace, input, iv,
+                        react_on = reactiveValues("var" = reactive(input$var),
+                                                  "sd" = reactive(input$sd)))
+    iv$enable()
+
+    # Reactors -----------------------------------------------------------------
     observe({
+      req(iv$is_valid())
       distr$distr$setParameterValue(mean = input$mean)
       distr$react <- runif(1)
     }) |>
       bindEvent(input$mean, ignoreInit = TRUE)
 
-    # Variance Controller ------------------------------------------------------
-    var <- control_variance_server(namespace, input,
-                                   react_on = reactiveValues("sd" = sd,
-                                                             "prec" = prec))
+
     observe({
+      req(iv$is_valid())
       distr$distr <- Normal$new(mean = input$mean, var = input$var)
       distr$react <- runif(1)
     }) |>
       bindEvent(input$var, ignoreInit = TRUE)
 
-    # Standard deviation Controller --------------------------------------------
-    sd <- control_sd_server(namespace, input,
-                            react_on = reactiveValues("var" = var,
-                                                      "prec" = prec))
     observe({
+      req(iv$is_valid())
       distr$distr <- Normal$new(mean = input$mean, sd = input$sd)
       distr$react <- runif(1)
     }) |>
       bindEvent(input$sd, ignoreInit = TRUE)
 
-    # Precision Controller -----------------------------------------------------
-    prec <- control_prec_server(namespace, input,
-                                react_on = reactiveValues("var" = var,
-                                                          "sd" = sd))
     observe({
+      req(iv$is_valid())
       distr$distr <- Normal$new(mean = input$mean, prec = input$prec)
       distr$react <- runif(1)
     }) |>
       bindEvent(input$prec, ignoreInit = TRUE)
-
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(

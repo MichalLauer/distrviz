@@ -9,6 +9,7 @@ plot_cdf <- function(distr, npoints = 1000) {
   plot <-
     ggplot(plotdf, aes(x = x, y = y)) +
     coord_cartesian(xlim = distr$quantile(c(0.001, 0.999))) +
+    theme_bw() +
     geom_line() +
     theme(
       panel.grid.major.y = element_blank(),

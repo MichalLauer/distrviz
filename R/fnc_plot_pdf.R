@@ -9,6 +9,7 @@ plot_pdf <- function(distr, npoints = 1000) {
   plot <- ggplot(plotdf, aes(x = x)) +
     geom_line(stat = "density") +
     coord_cartesian(xlim = distr$quantile(c(0.001, 0.999))) +
+    theme_bw() +
     theme(
       panel.grid.major.y = element_blank(),
       panel.grid.minor.y = element_blank(),
