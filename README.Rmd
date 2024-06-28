@@ -34,5 +34,6 @@ distr6::listDistributions() |>
              "Arcsine distribution" = "arcsine"
            )
          ) |> 
+  dplyr::filter(Type == "continuous", !Available) |>
   gt::gt()
 ```
