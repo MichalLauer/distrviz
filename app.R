@@ -19,6 +19,7 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Normal distribution" = "normal",
   "Student distribution" = "studentt",
   "Beta distribution" = "beta",
+  "Noncentral Beta distribution" = "betanoncentral",
   "Chi-Squared distribution" = "chisquared",
   "Arcsine distribution" = "arcsine"
 )
@@ -77,13 +78,20 @@ ui <- page_sidebar(
 
 server <- function(input, output, session) {
 
-  distributions <- reactiveValues(
-    normal = distr_normal_server("normal"),
-    studentt = distr_studentt_server("studentt"),
-    beta = distr_beta_server("beta"),
-    chisquared = distr_chisquared_server("chisquared"),
-    arcsine = distr_arcsine_server("arcsine"),
-  )
+  # Transform the global list into reactiveValues that holds individual server
+  # components
+  distributions <-
+    AVAILABLE_DISTRIBUTIONS |>
+    unname() |> 
+    lapply(function(x) {
+      if (!validate_input(input = x, distribs = AVAILABLE_DISTRIBUTIONS)) {
+        stop('Wrong stuff!')
+      }
+
+      eval(parse(text = glue("distr_{x}_server('{x}')")))
+    }) |>
+    setNames(nm = AVAILABLE_DISTRIBUTIONS) |> 
+    do.call('reactiveValues', args = _)
 
   # Update the local - current - working distribution
   distr <- NULL
@@ -122,13 +130,14 @@ server <- function(input, output, session) {
 
     d <- distr$distr
     text <- list(
-      glue("Expected value (E[X]) = {d$mean()}"),
-      glue("Variance (E[(X - E[X])^2]) = {d$variance()}"),
-      glue("Precision = {d$prec()}"),
-      glue("Kurtosis = {d$properties$kurtosis}"),
-      glue("Symmetry = {d$properties$symmetry}"),
-      glue("Skewness = {d$properties$skewness}")
+      glue("Expected value (E[X]) = {char(d$mean)}"),
+      glue("Variance (E[(X - E[X])^2]) = {char(d$variance)}"),
+      glue("Precision = {char(d$prec)}"),
+      glue("Kurtosis = {char(d$properties$kurtosis)}"),
+      glue("Symmetry = {char(d$properties$symmetry)}"),
+      glue("Skewness = {char(d$properties$skewness)}")
     )
+
     return(paste0(text, collapse = "\n"))
   }) |>
     bindEvent(input$draw, ignoreInit=T)
