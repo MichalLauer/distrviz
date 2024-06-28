@@ -19,6 +19,7 @@ control_sd_ui <- function(namespace,
 control_sd_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
+  iv$add_rule("sd", sv_required())
   iv$add_rule("sd", sv_gt(rhs = 0))
 
   # Reactor

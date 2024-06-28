@@ -19,6 +19,7 @@ control_prec_ui <- function(namespace,
 control_prec_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
+  iv$add_rule("prec", sv_required())
   iv$add_rule("prec", sv_gt(rhs = 0))
 
   # Reactor

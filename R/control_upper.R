@@ -18,4 +18,7 @@ control_upper_ui <- function(namespace,
 
 control_upper_server <- function(namespace, input, iv, react_on = NULL) {
 
+  # Validator
+  iv$add_rule("lower", sv_required())
+  
 }

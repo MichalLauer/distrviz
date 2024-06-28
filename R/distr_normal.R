@@ -38,9 +38,10 @@ distr_normal_server <- function(namespace) {
                         react_on = c("var", "sd"))
     iv$enable()
 
-    # Reactors -----------------------------------------------------------------
+    # Reactor ------------------------------------------------------------------
     observe({
       req(iv$is_valid())
+      
       distr$distr$setParameterValue(mean = input$mean)
       distr$react <- runif(1)
     }) |>
@@ -49,6 +50,7 @@ distr_normal_server <- function(namespace) {
 
     observe({
       req(iv$is_valid())
+
       distr$distr <- Normal$new(mean = input$mean, var = input$var)
       distr$react <- runif(1)
     }) |>
@@ -56,6 +58,7 @@ distr_normal_server <- function(namespace) {
 
     observe({
       req(iv$is_valid())
+
       distr$distr <- Normal$new(mean = input$mean, sd = input$sd)
       distr$react <- runif(1)
     }) |>
@@ -63,6 +66,7 @@ distr_normal_server <- function(namespace) {
 
     observe({
       req(iv$is_valid())
+
       distr$distr <- Normal$new(mean = input$mean, prec = input$prec)
       distr$react <- runif(1)
     }) |>

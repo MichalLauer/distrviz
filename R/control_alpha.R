@@ -19,6 +19,7 @@ control_alpha_ui <- function(namespace,
 control_alpha_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
+  iv$add_rule("alpha", sv_required())
   iv$add_rule("alpha", sv_gt(rhs = 0))
 
 }

@@ -19,6 +19,7 @@ control_variance_ui <- function(namespace,
 control_variance_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
+  iv$add_rule("var", sv_required())
   iv$add_rule("var", sv_gt(rhs = 0))
 
   # Reactor

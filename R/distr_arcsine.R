@@ -32,9 +32,10 @@ distr_arcsine_server <- function(namespace) {
     })
     iv$enable()
 
-    # Reactors -----------------------------------------------------------------
+    # Reactor ------------------------------------------------------------------
     observe({
       req(iv$is_valid())
+
       distr$distr$setParameterValue(lower = input$lower)
       distr$react <- runif(1)
     }) |>
@@ -42,6 +43,7 @@ distr_arcsine_server <- function(namespace) {
 
     observe({
       req(iv$is_valid())
+      
       distr$distr$setParameterValue(upper = input$upper)
       distr$react <- runif(1)
     }) |>

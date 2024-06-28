@@ -19,8 +19,10 @@ distr_chisquared_server <- function(namespace) {
     control_df_server(namespace, input, iv)
     iv$enable()
 
-    # Degrees of freedom Controller --------------------------------------------
+    # Reactor ------------------------------------------------------------------
     observe({
+      req(iv$is_valid())
+      
       distr$distr$setParameterValue(df = input$df)
       distr$react <- runif(1)
     }) |>

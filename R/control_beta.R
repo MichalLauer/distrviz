@@ -19,6 +19,7 @@ control_beta_ui <- function(namespace,
 control_beta_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
+  iv$add_rule("beta", sv_required())
   iv$add_rule("beta", sv_gt(rhs = 0))
 
 }

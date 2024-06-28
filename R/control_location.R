@@ -1,6 +1,6 @@
-control_mean_ui <- function(namespace,
-                            inputId = "mean",
-                            label = "Mean (µ)",
+control_location_ui <- function(namespace,
+                            inputId = "location",
+                            label = "Location (λ)",
                             value = 0,
                             min = NA,
                             max = NA,
@@ -16,9 +16,10 @@ control_mean_ui <- function(namespace,
   )
 }
 
-control_mean_server <- function(namespace, input = NULL, iv = NULL) {
+control_location_server <- function(namespace, input = NULL, iv = NULL) {
   ns <- NS(namespace)
 
   # Validator
-  iv$add_rule("mean", sv_required())
+  iv$add_rule("location", sv_required())
+  iv$add_rule("location", sv_gte(0))
 }

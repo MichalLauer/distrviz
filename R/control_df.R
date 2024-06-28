@@ -19,6 +19,7 @@ control_df_ui <- function(namespace,
 control_df_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
+  iv$add_rule("df", sv_required())
   iv$add_rule("df", sv_gt(rhs = 0))
   iv$add_rule("df", sv_integer())
 

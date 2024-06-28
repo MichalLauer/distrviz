@@ -1,4 +1,4 @@
-distr_beta_ui <- function(namespace) {
+distr_betanoncentral_ui <- function(namespace) {
   ns <- NS(namespace)
   tagList(
     card(
@@ -6,6 +6,7 @@ distr_beta_ui <- function(namespace) {
         "Parameters"
       ),
       card_body(
+        control_location_ui(namespace),
         control_alpha_ui(namespace),
         control_beta_ui(namespace)
       )
@@ -13,7 +14,7 @@ distr_beta_ui <- function(namespace) {
   )
 }
 
-distr_beta_server <- function(namespace) {
+distr_betanoncentral_server <- function(namespace) {
   ns <- NS(namespace)
 
   moduleServer(namespace, function(input, output, session) {
@@ -22,12 +23,13 @@ distr_beta_server <- function(namespace) {
     iv <- InputValidator$new()
     control_alpha_server(namespace, input, iv)
     control_beta_server(namespace, input, iv)
+    control_location_server(namespace, input, iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------
     observe({
       req(iv$is_valid())
-      
+
       distr$distr$setParameterValue(shape1 = input$alpha)
       distr$react <- runif(1)
     }) |>
@@ -35,15 +37,23 @@ distr_beta_server <- function(namespace) {
 
     observe({
       req(iv$is_valid())
-      
+
       distr$distr$setParameterValue(shape2 = input$beta)
       distr$react <- runif(1)
     }) |>
       bindEvent(input$beta, ignoreInit = TRUE)
 
+    observe({
+      req(iv$is_valid())
+
+      distr$distr$setParameterValue(location = input$location)
+      distr$react <- runif(1)
+    }) |>
+      bindEvent(input$location, ignoreInit = TRUE)
+
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
-      distr = Beta$new(),
+      distr = BetaNoncentral$new(),
       iv = iv
     )
 
