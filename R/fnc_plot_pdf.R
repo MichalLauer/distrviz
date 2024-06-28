@@ -16,14 +16,12 @@ plot_pdf <- function(distr, npoints = 10000) {
     to <- distr$properties$support$upper
   }
 
-  plotdf <-
-    dplyr::tibble(
+  plot <-
+    tibble(
       x = seq(from = from, to = to, length.out = npoints),
       y = distr$pdf(x)
-    )
-
-  plot <-
-    ggplot(plotdf, aes(x = x, y = y)) +
+    ) |>
+    ggplot(aes(x = x, y = y)) +
     geom_line() +
     # coord_cartesian(xlim = c(lower_bound, upper_bound)) +
     theme_bw() +

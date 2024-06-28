@@ -1,0 +1,38 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# distrviz
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of distrviz is to vizualize (hopefully) every distribution that is 
+available in the [`{distr6}`](https://github.com/xoopR/distr6) package. So far,
+these distributions are available:
+
+```{r echo=F}
+distr6::listDistributions() |> 
+  dplyr::as_tibble() |> 
+  dplyr::select(Distribution = ClassName,
+         Type = ValueSupport) |> 
+  dplyr::mutate(Available = tolower(Distribution) %in% 
+           c(
+             "Normal distribution" = "normal",
+             "Student distribution" = "studentt",
+             "Beta distribution" = "beta",
+             "Chi-Squared distribution" = "chisquared",
+             "Arcsine distribution" = "arcsine"
+           )
+         ) |> 
+  gt::gt()
+```
