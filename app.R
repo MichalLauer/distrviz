@@ -7,8 +7,10 @@ library(bslib)
 
 library(distr6)
 library(glue)
+library(dplyr)
 
 library(plotly)
+library(gt)
 
 rm(list = ls())
 invisible(sapply(list.files("R", full.names = T), FUN = source))
