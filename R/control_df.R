@@ -16,15 +16,10 @@ control_df_ui <- function(namespace,
   )
 }
 
-control_df_server <- function(namespace, input, react_on = NULL) {
+control_df_server <- function(namespace, input, iv, react_on = NULL) {
 
   # Validator
-  iv <- InputValidator$new()
   iv$add_rule("df", sv_gt(rhs = 0))
   iv$add_rule("df", sv_integer())
-  iv$enable()
-
-  # Return
-  return(iv)
 
 }

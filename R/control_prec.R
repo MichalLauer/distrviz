@@ -1,6 +1,6 @@
 control_prec_ui <- function(namespace,
                             inputId = "prec",
-                            label = "Standard deviation (τ)",
+                            label = "Precision (τ)",
                             value = 1,
                             min = 0.1,
                             max = NA,
@@ -24,19 +24,19 @@ control_prec_server <- function(namespace, input, iv, react_on = NULL) {
   # Reactor
   local_others <- NULL
   observe({
-    req(iv$is_valid())
-    others <- reactiveValuesToList(react_on)
+    req(iv$is_valid(), !is.null(react_on))
     if (is.null(local_others)) {
-      local_others <<- lapply(names(others), FUN = function(x) isolate(others[[x]]()))
-      names(local_others) <<- names(others)
+      local_others <<- lapply(react_on, FUN = function(x) input[[x]])
+      names(local_others) <<- react_on
       req(NULL)
     }
 
     for (i in seq_along(local_others)) {
+      name <- names(local_others[i])
+
       local <- local_others[[i]]
-      new <- isolate(others[[i]]())
-      if (local != new || is.null(local)) {
-        name <- names(others[i])
+      new <- input[[ name ]]
+      if (local != new) {
         local_others[[name]] <<- new
         tf <- transformations[["prec"]][[name]](new)
         update_control(namespace = namespace,
@@ -48,11 +48,7 @@ control_prec_server <- function(namespace, input, iv, react_on = NULL) {
 
   }) |>
     bindEvent({
-      req(react_on)
-      lapply(names(react_on), FUN = function(x) react_on[[x]]())
-    })
-
-  # Return
-  return(iv)
+      lapply(react_on, function(x) input[[x]])
+    }, ignoreInit = T)
 
 }

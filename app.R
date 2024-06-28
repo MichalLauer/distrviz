@@ -8,51 +8,62 @@ library(distr6)
 library(glue)
 
 library(plotly)
-library(gt)
 
 rm(list = ls())
 invisible(sapply(list.files("R", full.names = T), FUN = source))
 
-ui <- page_fillable(
+ui <- page_sidebar(
   title = "DistViz",
   theme = bs_theme(version = 5) |>
     bs_theme_update(code_font = font_collection(font_google("Fira Code"),
                                                 "monospace"),
-                    preset = "journal"),
+                    preset = "journal") |>
+    bs_add_rules(rules = sass::sass_file("assets/style.scss")),
   useShinyjs(),
-  layout_columns(
-    col_widths = c(2, 10),
-    # Controls
+  sidebar = sidebar(
+    open = NA,
+    gap = ".5rem",
+    selectInput(inputId = "distr_select",
+                label = "Select distribution",
+                choices = c(
+                  "Normal distribution" = "normal",
+                  "Student distribution" = "studentt",
+                  "Beta distribution" = "beta",
+                  "Chi-Squared distribution" = "chisquared",
+                  "Arcsine distribution" = "arcsine"
+                )),
+    uiOutput("distr_show"),
+    textOutput("distr_info"),
+    actionButton(inputId = "draw",
+                 label = "Draw!",
+                 icon = icon("pencil"),
+                 class = "btn btn-success")
+
+  ),
+  # plots
+  layout_column_wrap(
+    width = 1/2,
+    heights_equal = "row",
     card(
-      card_header("Select distribution"),
-      selectInput(inputId = "distr_select",
-                  label = "Select distribution",
-                  choices = c(
-                    "Normal distribution" = "normal",
-                    "Student distribution" = "studentt"
-                  )),
-      uiOutput("distr_show"),
-      textOutput("distr_info")
+      height = "70vh",
+      full_screen = T,
+      card_header("Probability distribution function (PDF)"),
+      plotlyOutput("pdf")
     ),
-    # plots
-    layout_column_wrap(
-      width = 1/2,
-      card(
-        card_header("Probability distribution function (PDF)"),
-        plotlyOutput("pdf")
-      ),
-      card(
-        card_header("Cumulative distribution function (PDF)"),
-        plotlyOutput("cdf")
-      ),
-      card(
-        card_header("Characteristics of distribution"),
-        gt_output("info"),
-      ),
-      card(
-        card_header("Characteristics of distribution"),
-        "STRL"
-      )
+    card(
+      height = "70vh",
+      card_header("Cumulative distribution function (PDF)"),
+      plotlyOutput("cdf")
+    ),
+    card(
+      height = "30vh",
+      card_header("Characteristics of distribution"),
+      verbatimTextOutput("info"),
+    ),
+    card(
+      height = "30vh",
+      card_header("Characteristics of distribution"),
+      "STRL"
     )
   )
 )
@@ -63,7 +74,10 @@ server <- function(input, output, session) {
     # TODO: Distribution parser který ověří že existuje (ochrana proti code
     # injection)
     normal = distr_normal_server("normal"),
-    studentt = distr_studentt_server("studentt")
+    studentt = distr_studentt_server("studentt"),
+    beta = distr_beta_server("beta"),
+    chisquared = distr_chisquared_server("chisquared"),
+    arcsine = distr_arcsine_server("arcsine"),
   )
 
   distr <- NULL
@@ -83,28 +97,35 @@ server <- function(input, output, session) {
     bindEvent(input$distr_select)
 
   output$pdf <- renderPlotly({
+    req(distr$iv$is_valid(), cancelOutput = T)
     plot_pdf(distr$distr)
   }) |>
-    bindEvent({
-      list(input$distr_select, distr$react)
-    })
+    bindEvent(input$draw, ignoreInit=T)
 
   output$cdf <- renderPlotly({
+    req(distr$iv$is_valid(), cancelOutput = T)
+
     plot_cdf(distr$distr)
   }) |>
-    bindEvent({
-      list(input$distr_select, distr$react)
-    })
+    bindEvent(input$draw, ignoreInit=T)
 
-  output$info <- render_gt({
-    mtcars |>
-      head() |>
-      gt()
-  })
+  output$info <- renderText({
+    req(distr$iv$is_valid(), cancelOutput = T)
+    text <- list(
+      glue("Expected value (E[X]) = {distr$distr$mean()}"),
+      glue("Variance (E[(X - E[X])^2]) = {distr$distr$variance()}"),
+      glue("Precision = {distr$distr$prec()}"),
+      glue("Kurtosis = {distr$distr$properties$kurtosis}"),
+      glue("Symmetry = {distr$distr$properties$symmetry}"),
+      glue("Skewness = {distr$distr$properties$skewness}")
+    )
+    return(paste0(text, collapse = "\n"))
+  }) |>
+    bindEvent(input$draw, ignoreInit=T)
 }
 
 shinyApp(ui, server, options = list(
   launch.browser = F,
-  port = 4816
+  port = 1234
 ))
 

@@ -31,14 +31,11 @@ distr_normal_server <- function(namespace) {
     iv <- InputValidator$new()
     control_mean_server(namespace, input, iv)
     control_variance_server(namespace, input, iv,
-                            react_on = reactiveValues("sd" = reactive(input$sd),
-                                                      "prec" = reactive(input$prec)))
+                            react_on = c("sd", "prec"))
     control_sd_server(namespace, input, iv,
-                      react_on = reactiveValues("var" = reactive(input$var),
-                                                "prec" = reactive(input$prec)))
+                      react_on = c("var", "prec"))
     control_prec_server(namespace, input, iv,
-                        react_on = reactiveValues("var" = reactive(input$var),
-                                                  "sd" = reactive(input$sd)))
+                        react_on = c("var", "sd"))
     iv$enable()
 
     # Reactors -----------------------------------------------------------------
@@ -74,7 +71,7 @@ distr_normal_server <- function(namespace) {
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
       distr = Normal$new(),
-      react = runif(1)
+      iv = iv
     )
 
     return(distr)

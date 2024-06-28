@@ -20,6 +20,4 @@ control_mean_server <- function(namespace, input = NULL, iv = NULL) {
   ns <- NS(namespace)
 
   iv$add_rule("mean", sv_required())
-
-  return(iv)
 }

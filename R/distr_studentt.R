@@ -11,12 +11,15 @@ distr_studentt_ui <- function(namespace) {
 }
 
 distr_studentt_server <- function(namespace) {
-  ns <- NS(namespace)
 
   moduleServer(namespace, function(input, output, session) {
 
+    # Validators ---------------------------------------------------------------
+    iv <- InputValidator$new()
+    control_df_server(namespace, input, iv)
+    iv$enable()
+
     # Degrees of freedom Controller --------------------------------------------
-    df <- control_df_server(namespace)
     observe({
       distr$distr$setParameterValue(df = input$df)
       distr$react <- runif(1)
@@ -26,7 +29,7 @@ distr_studentt_server <- function(namespace) {
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
       distr = StudentT$new(),
-      react = runif(1)
+      iv = iv
     )
 
     return(distr)

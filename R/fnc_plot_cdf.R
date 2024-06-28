@@ -17,7 +17,16 @@ plot_cdf <- function(distr, npoints = 1000) {
       plot.title = element_text(hjust = 0.5)
     ) +
     labs(title = distr$strprint(),
-         x = "x", y = "F(x)")
+         x = NULL, y = "F(x)")
 
-  ggplotly(plot)
+  ggplotly(plot) |>
+    layout(
+      xaxis = list(
+        rangeslider = list(visible = T)
+      )
+    ) |>
+    config(modeBarButtonsToRemove = c("zoomIn2d", "zoomOut2d", "pan",
+                                      "autoscale", "zoom",
+                                      "hoverClosestCartesian",
+                                      "hoverCompareCartesian"))
 }
