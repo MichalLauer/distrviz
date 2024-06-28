@@ -1,6 +1,7 @@
 library(shiny)
 library(shinyjs)
 library(shinyvalidate)
+library(shinyWidgets)
 library(htmltools)
 library(bslib)
 
@@ -23,15 +24,17 @@ ui <- page_sidebar(
   sidebar = sidebar(
     open = NA,
     gap = ".5rem",
-    selectInput(inputId = "distr_select",
-                label = "Select distribution",
-                choices = c(
-                  "Normal distribution" = "normal",
-                  "Student distribution" = "studentt",
-                  "Beta distribution" = "beta",
-                  "Chi-Squared distribution" = "chisquared",
-                  "Arcsine distribution" = "arcsine"
-                )),
+    virtualSelectInput(inputId = "distr_select",
+                       label = "Select distribution",
+                       search = T,
+                       choices = sort(c(
+                         "Normal distribution" = "normal",
+                         "Student distribution" = "studentt",
+                         "Beta distribution" = "beta",
+                         "Chi-Squared distribution" = "chisquared",
+                         "Arcsine distribution" = "arcsine"
+                       )),
+                       selected = "normal"),
     uiOutput("distr_show"),
     textOutput("distr_info"),
     actionButton(inputId = "draw",
