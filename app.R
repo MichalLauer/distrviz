@@ -21,7 +21,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Beta distribution" = "beta",
   "Noncentral Beta distribution" = "betanoncentral",
   "Chi-Squared distribution" = "chisquared",
-  "Arcsine distribution" = "arcsine"
+  "Arcsine distribution" = "arcsine",
+  "Cauchy distribution" = "cauchy"
 )
 
 ui <- page_sidebar(

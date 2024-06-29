@@ -23,7 +23,8 @@ distr_betanoncentral_server <- function(namespace) {
     iv <- InputValidator$new()
     control_alpha_server(namespace, input, iv)
     control_beta_server(namespace, input, iv)
-    control_location_server(namespace, input, iv)
+    control_location_server(namespace, input, iv,
+                            rules = compose_rules(sv_gte(0)))
     iv$enable()
 
     # Reactor ------------------------------------------------------------------

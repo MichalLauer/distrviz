@@ -20,20 +20,23 @@ The goal of distrviz is to vizualize (hopefully) every distribution that is
 available in the [`{distr6}`](https://github.com/xoopR/distr6) package. So far,
 these distributions are available:
 
+```{r include=F}
+AVAILABLE_DISTRIBUTIONS <- c(
+  "Normal distribution" = "normal",
+  "Student distribution" = "studentt",
+  "Beta distribution" = "beta",
+  "Noncentral Beta distribution" = "betanoncentral",
+  "Chi-Squared distribution" = "chisquared",
+  "Arcsine distribution" = "arcsine"
+)
+```
+
 ```{r echo=F}
 distr6::listDistributions() |> 
   dplyr::as_tibble() |> 
   dplyr::select(Distribution = ClassName,
          Type = ValueSupport) |> 
-  dplyr::mutate(Available = tolower(Distribution) %in% 
-           c(
-             "Normal distribution" = "normal",
-             "Student distribution" = "studentt",
-             "Beta distribution" = "beta",
-             "Chi-Squared distribution" = "chisquared",
-             "Arcsine distribution" = "arcsine"
-           )
-         ) |> 
+  dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
   dplyr::filter(Type == "continuous", !Available) |>
   gt::gt()
 ```

@@ -16,10 +16,13 @@ control_location_ui <- function(namespace,
   )
 }
 
-control_location_server <- function(namespace, input = NULL, iv = NULL) {
+control_location_server <- function(namespace, input, iv, rules = NULL) {
   ns <- NS(namespace)
 
   # Validator
   iv$add_rule("location", sv_required())
-  iv$add_rule("location", sv_gte(0))
+  if (!is.null(rules)) {
+    iv$add_rule("location", rules)
+  }
+  
 }
