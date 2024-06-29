@@ -1,8 +1,8 @@
 control_df_ui <- function(namespace,
                           inputId = "df",
                           label = "Degrees of freedom (ν)",
-                          value = 5,
-                          min = 1,
+                          value = 3,
+                          min = NA,
                           max = NA,
                           step = 1) {
   ns <- NS(namespace)
@@ -21,6 +21,5 @@ control_df_server <- function(namespace, input, iv, react_on = NULL) {
   # Validator
   iv$add_rule("df", sv_required())
   iv$add_rule("df", sv_gt(rhs = 0))
-  iv$add_rule("df", sv_integer())
 
 }

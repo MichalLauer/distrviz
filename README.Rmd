@@ -27,7 +27,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Beta distribution" = "beta",
   "Noncentral Beta distribution" = "betanoncentral",
   "Chi-Squared distribution" = "chisquared",
-  "Arcsine distribution" = "arcsine"
+  "Arcsine distribution" = "arcsine",
+  "Cauchy distribution" = "cauchy"
 )
 ```
 
@@ -40,3 +41,9 @@ distr6::listDistributions() |>
   dplyr::filter(Type == "continuous", !Available) |>
   gt::gt()
 ```
+
+Todo:
+ - automatically add validation based on `$parameters()`
+ - fix width for `chisquarednoncentral`
+ - add distribs
+ - add `Kappa` and `Omega` parametrization to `beta`

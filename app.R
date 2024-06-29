@@ -20,7 +20,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Student distribution" = "studentt",
   "Beta distribution" = "beta",
   "Noncentral Beta distribution" = "betanoncentral",
-  "Chi-Squared distribution" = "chisquared",
+  "ChiSquared distribution" = "chisquared",
+  "Noncentral ChiSquared distribution" = "chisquarednoncentral",
   "Arcsine distribution" = "arcsine",
   "Cauchy distribution" = "cauchy"
 )
