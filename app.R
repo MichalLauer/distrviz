@@ -23,7 +23,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "ChiSquared" = "chisquared",
   "Noncentral ChiSquared" = "chisquarednoncentral",
   "Arcsine" = "arcsine",
-  "Cauchy" = "cauchy"
+  "Cauchy" = "cauchy",
+  "Binomial" = "binomial"
 )
 
 ui <- page_sidebar(

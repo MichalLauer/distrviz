@@ -10,5 +10,11 @@ transformations <- list(
   "prec" = list(
     "var" = function(x) return(1/x),
     "sd" = function(x) return(1/(x^2))
+  ),
+  "prob" = list(
+    "qprob" = function(x) return(1 - x)
+  ),
+  "qprob" = list(
+    "prob" = function(x) return(1 - x)
   )
 )
