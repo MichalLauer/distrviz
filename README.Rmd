@@ -43,6 +43,6 @@ distr6::listDistributions() |>
 ```
 
 Todo:
- - fix width for `chisquarednoncentral`
+ - properly name parameter groups (*central tendency* etc)
  - add distribs
  - add `Kappa` and `Omega` parametrization to `beta`

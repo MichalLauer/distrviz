@@ -16,14 +16,14 @@ rm(list = ls())
 invisible(sapply(list.files("R", full.names = T), FUN = source))
 
 AVAILABLE_DISTRIBUTIONS <- c(
-  "Normal distribution" = "normal",
-  "Student distribution" = "studentt",
-  "Beta distribution" = "beta",
-  "Noncentral Beta distribution" = "betanoncentral",
-  "ChiSquared distribution" = "chisquared",
-  "Noncentral ChiSquared distribution" = "chisquarednoncentral",
-  "Arcsine distribution" = "arcsine",
-  "Cauchy distribution" = "cauchy"
+  "Normal" = "normal",
+  "Student" = "studentt",
+  "Beta" = "beta",
+  "Noncentral Beta" = "betanoncentral",
+  "ChiSquared" = "chisquared",
+  "Noncentral ChiSquared" = "chisquarednoncentral",
+  "Arcsine" = "arcsine",
+  "Cauchy" = "cauchy"
 )
 
 ui <- page_sidebar(
