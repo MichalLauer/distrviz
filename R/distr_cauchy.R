@@ -20,8 +20,8 @@ distr_cauchy_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_location_server(namespace, input, iv)
-    control_scale_server(namespace, input, iv)
+    control_location_server(namespace=namespace, iv=iv)
+    control_scale_server(namespace=namespace, iv=iv)
 
     # Reactor ------------------------------------------------------------------
     observe({

@@ -20,8 +20,8 @@ distr_beta_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_alpha_server(namespace, input, iv)
-    control_beta_server(namespace, input, iv)
+    control_alpha_server(namespace=namespace, iv=iv)
+    control_beta_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------

@@ -43,7 +43,6 @@ distr6::listDistributions() |>
 ```
 
 Todo:
- - automatically add validation based on `$parameters()`
  - fix width for `chisquarednoncentral`
  - add distribs
  - add `Kappa` and `Omega` parametrization to `beta`

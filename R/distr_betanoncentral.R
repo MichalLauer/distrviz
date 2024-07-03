@@ -21,10 +21,9 @@ distr_betanoncentral_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_alpha_server(namespace, input, iv)
-    control_beta_server(namespace, input, iv)
-    control_location_server(namespace, input, iv,
-                            rules = compose_rules(sv_gte(0)))
+    control_alpha_server(namespace=namespace, iv=iv)
+    control_beta_server(namespace=namespace, iv=iv)
+    control_location_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------

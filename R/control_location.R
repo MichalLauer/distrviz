@@ -16,13 +16,15 @@ control_location_ui <- function(namespace,
   )
 }
 
-control_location_server <- function(namespace, input, iv, rules = NULL) {
+control_location_server <- function(namespace, iv, input = NULL, react_on = NULL) {
   ns <- NS(namespace)
 
   # Validator
-  iv$add_rule("location", sv_required())
-  if (!is.null(rules)) {
-    iv$add_rule("location", rules)
-  }
+  # needs to be inside observe(...) because iv itself is reactive
+  observe({
+    add_control_validation(distr = dparse(glue("{namespace}()")),
+                           param = "location",
+                           iv = iv)
+  })
   
 }

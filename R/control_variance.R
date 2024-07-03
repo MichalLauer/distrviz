@@ -16,11 +16,15 @@ control_variance_ui <- function(namespace,
   )
 }
 
-control_variance_server <- function(namespace, input, iv, react_on = NULL) {
+control_variance_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
-  iv$add_rule("var", sv_required())
-  iv$add_rule("var", sv_gt(rhs = 0))
+  # needs to be inside observe(...) because iv itself is reactive
+  observe({
+    add_control_validation(distr = dparse(glue("{namespace}()")),
+                           param = "var",
+                           iv = iv)
+  })
 
   # Reactor
   local_others <- NULL

@@ -29,12 +29,12 @@ distr_normal_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_mean_server(namespace, input, iv)
-    control_variance_server(namespace, input, iv,
+    control_mean_server(namespace=namespace, iv=iv)
+    control_variance_server(namespace=namespace, iv=iv, input=input,
                             react_on = c("sd", "prec"))
-    control_sd_server(namespace, input, iv,
+    control_sd_server(namespace=namespace, iv=iv, input=input,
                       react_on = c("var", "prec"))
-    control_prec_server(namespace, input, iv,
+    control_prec_server(namespace=namespace, iv=iv, input=input,
                         react_on = c("var", "sd"))
     iv$enable()
 

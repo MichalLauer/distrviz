@@ -16,9 +16,13 @@ control_mean_ui <- function(namespace,
   )
 }
 
-control_mean_server <- function(namespace, input = NULL, iv = NULL) {
-  ns <- NS(namespace)
+control_mean_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
-  iv$add_rule("mean", sv_required())
+  # needs to be inside observe(...) because iv itself is reactive
+  observe({
+    add_control_validation(distr = dparse(glue("{namespace}()")),
+                           param = "mean",
+                           iv = iv)
+  })
 }

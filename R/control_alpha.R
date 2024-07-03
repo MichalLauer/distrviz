@@ -16,10 +16,15 @@ control_alpha_ui <- function(namespace,
   )
 }
 
-control_alpha_server <- function(namespace, input, iv, react_on = NULL) {
+control_alpha_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
-  iv$add_rule("alpha", sv_required())
-  iv$add_rule("alpha", sv_gt(rhs = 0))
+  # needs to be inside observe(...) because iv itself is reactive
+  observe({
+    add_control_validation(distr = dparse(glue("{namespace}()")),
+                           param = "shape1",
+                           input = "alpha",
+                           iv = iv)
+  })
 
 }

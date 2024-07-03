@@ -16,7 +16,7 @@ distr_chisquared_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_df_server(namespace, input, iv)
+    control_df_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------

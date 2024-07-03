@@ -20,8 +20,9 @@ distr_arcsine_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_lower_server(namespace, input, iv)
-    control_upper_server(namespace, input, iv)
+    control_lower_server(namespace=namespace, iv=iv)
+    control_upper_server(namespace=namespace, iv=iv)
+    
     iv$add_rule("upper", function(u) {
       req(input$lower)
 
