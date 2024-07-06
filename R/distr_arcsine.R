@@ -22,16 +22,16 @@ distr_arcsine_server <- function(namespace) {
     iv <- InputValidator$new()
     control_lower_server(namespace=namespace, iv=iv)
     control_upper_server(namespace=namespace, iv=iv)
-    
-    iv$add_rule("upper", function(u) {
-      req(input$lower)
-      req(input$upper)
+    observe({
+      iv$add_rule("upper", function(u) {
+        l <- as.numeric(input$lower)
+        if (u < l) {
+          "'Lower' must be <= 'Upper'"
+        }
+      })
+    }) |> 
+      bindEvent(input$upper)
 
-      l <- as.numeric(input$lower)
-      if (u < l) {
-        "'Lower' must be <= 'Upper'"
-      }
-    })
     iv$enable()
 
     # Reactor ------------------------------------------------------------------

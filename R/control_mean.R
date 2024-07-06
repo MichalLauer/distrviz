@@ -20,11 +20,10 @@ control_mean_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
   # needs to be inside observe(...) because iv itself is reactive
-  observe({
-    req(input$mean)
- 
+  observe({ 
     add_control_validation(distr = dparse(glue("{namespace}()")),
                            param = "mean",
                            iv = iv)
-  })
+  }) |> 
+    bindEvent(input$mean)
 }

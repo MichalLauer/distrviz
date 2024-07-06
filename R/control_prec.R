@@ -21,12 +21,11 @@ control_prec_server <- function(namespace, iv, input = NULL, react_on = NULL) {
   # Validator
   # needs to be inside observe(...) because iv itself is reactive
   observe({
-    req(input$prec)
-
     add_control_validation(distr = dparse(glue("{namespace}()")),
                            param = "prec",
                            iv = iv)
-  })
+  }) |> 
+    bindEvent(input$prec)
 
   # Reactor
   local_others <- NULL

@@ -22,11 +22,10 @@ control_location_server <- function(namespace, iv, input = NULL, react_on = NULL
   # Validator
   # needs to be inside observe(...) because iv itself is reactive
   observe({
-    req(input$location)
-    
     add_control_validation(distr = dparse(glue("{namespace}()")),
                            param = "location",
                            iv = iv)
-  })
+  }) |> 
+    bindEvent(input$location)
   
 }
