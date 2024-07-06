@@ -1,9 +1,9 @@
-control_beta_ui <- function(namespace,
-                            step = 1,
-                            value = 1,
-                            distr = namespace,
-                            inputId = "shape2",
-                            label = "Beta (β)") {
+control_shape2_ui <- function(namespace,
+                             step = 1,
+                             value = 1,
+                             distr = namespace,
+                             inputId = "shape2",
+                             label = "Beta (β)") {
   ns <- NS(namespace)
   p <- dparse(glue("{distr}()"))$parameters()$supports[[inputId]]
 
@@ -21,7 +21,7 @@ control_beta_ui <- function(namespace,
   )
 }
 
-control_beta_server <- function(namespace, iv, input = NULL, react_on = NULL) {
+control_shape2_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),

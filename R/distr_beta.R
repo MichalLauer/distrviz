@@ -6,8 +6,8 @@ distr_beta_ui <- function(namespace) {
         "Parameters"
       ),
       card_body(
-        control_alpha_ui(namespace),
-        control_beta_ui(namespace)
+        control_shape1_ui(namespace),
+        control_shape2_ui(namespace)
       )
     )
   )
@@ -20,8 +20,8 @@ distr_beta_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_alpha_server(namespace=namespace, iv=iv)
-    control_beta_server(namespace=namespace, iv=iv)
+    control_shape1_server(namespace=namespace, iv=iv)
+    control_shape2_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------

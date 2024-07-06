@@ -7,8 +7,8 @@ distr_betanoncentral_ui <- function(namespace) {
       ),
       card_body(
         control_location_ui(namespace),
-        control_alpha_ui(namespace),
-        control_beta_ui(namespace)
+        control_shape1_ui(namespace),
+        control_shape2_ui(namespace)
       )
     )
   )
@@ -21,8 +21,8 @@ distr_betanoncentral_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_alpha_server(namespace=namespace, iv=iv)
-    control_beta_server(namespace=namespace, iv=iv)
+    control_shape1_server(namespace=namespace, iv=iv)
+    control_shape2_server(namespace=namespace, iv=iv)
     control_location_server(namespace=namespace, iv=iv)
     iv$enable()
 
@@ -30,18 +30,18 @@ distr_betanoncentral_server <- function(namespace) {
     observe({
       req(iv$is_valid())
 
-      distr$distr$setParameterValue(shape1 = input$alpha)
+      distr$distr$setParameterValue(shape1 = input$shape1)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$alpha, ignoreInit = TRUE)
+      bindEvent(input$shape1, ignoreInit = TRUE)
 
     observe({
       req(iv$is_valid())
 
-      distr$distr$setParameterValue(shape2 = input$beta)
+      distr$distr$setParameterValue(shape2 = input$shape2)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$beta, ignoreInit = TRUE)
+      bindEvent(input$shape2, ignoreInit = TRUE)
 
     observe({
       req(iv$is_valid())

@@ -1,9 +1,9 @@
-control_alpha_ui <- function(namespace,
-                             value = 1,
-                             step = 1, 
-                             distr = namespace,
-                             inputId = "shape1",
-                             label = "Alpha (α)") {
+control_shape1_ui <- function(namespace,
+                              value = 1,
+                              step = 1, 
+                              distr = namespace,
+                              inputId = "shape1",
+                              label = "Alpha (α)") {
   ns <- NS(namespace)
   p <- dparse(glue("{distr}()"))$parameters()$supports[[inputId]]
   
@@ -21,7 +21,7 @@ control_alpha_ui <- function(namespace,
   )
 }
 
-control_alpha_server <- function(namespace, iv, input = NULL, react_on = NULL) {
+control_shape1_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),
