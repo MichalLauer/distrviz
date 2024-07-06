@@ -100,6 +100,7 @@ server <- function(input, output, session) {
   distr <- NULL
   observe({
     req(validate_input(input = input$distr_select, distribs = AVAILABLE_DISTRIBUTIONS))
+
     distr <<- distributions[[input$distr_select]]
   }) |>
     bindEvent(input$distr_select)

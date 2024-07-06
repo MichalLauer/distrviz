@@ -21,6 +21,8 @@ control_qprob_server <- function(namespace, iv, input = NULL, react_on = NULL) {
   # Validator
   # needs to be inside observe(...) because iv itself is reactive
   observe({
+    req(input$qprob)
+    
     add_control_validation(distr = dparse(glue("{namespace}()")),
                            param = "qprob",
                            iv = iv)

@@ -25,6 +25,7 @@ distr_arcsine_server <- function(namespace) {
     
     iv$add_rule("upper", function(u) {
       req(input$lower)
+      req(input$upper)
 
       l <- as.numeric(input$lower)
       if (u < l) {

@@ -21,6 +21,8 @@ control_sd_server <- function(namespace, iv, input = NULL, react_on = NULL) {
   # Validator
   # needs to be inside observe(...) because iv itself is reactive
   observe({
+    req(input$sd)
+
     add_control_validation(distr = dparse(glue("{namespace}()")),
                            param = "sd",
                            iv = iv)
