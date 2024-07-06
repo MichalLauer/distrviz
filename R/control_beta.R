@@ -1,17 +1,22 @@
 control_beta_ui <- function(namespace,
-                            inputId = "beta",
-                            label = "Beta (β)",
-                            value = 5,
-                            min = 1,
-                            max = NA,
-                            step = 1) {
+                            step = 1,
+                            value = 1,
+                            distr = namespace,
+                            inputId = "shape2",
+                            label = "Beta (β)") {
   ns <- NS(namespace)
+  p <- dparse(glue("{distr}()"))$parameters()$supports[[inputId]]
+
+  if (!p$contains(value)) {
+    warning(glue("Default value is not valid for '{inputId}' in '{namespace}'."))
+  }
+
   numericInput(
     inputId = ns(inputId),
     label = label,
     value = value,
-    min = min,
-    max = max,
+    min = p$lower,
+    max = p$upper,
     step = step
   )
 }
@@ -19,13 +24,8 @@ control_beta_ui <- function(namespace,
 control_beta_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
-  # needs to be inside observe(...) because iv itself is reactive
-  observe({    
-    add_control_validation(distr = dparse(glue("{namespace}()")),
-                           param = "shape2",
-                           input = "beta",
-                           iv = iv)
-  }) |> 
-    bindEvent(input$beta)
+  add_control_validation(distr = dparse(glue("{namespace}()")),
+                          param = "shape2",
+                          iv = iv)
 
 }

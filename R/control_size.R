@@ -19,12 +19,8 @@ control_size_ui <- function(namespace,
 control_size_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
-  # needs to be inside observe(...) because iv itself is reactive
-  observe({    
-    add_control_validation(distr = dparse(glue("{namespace}()")),
-                           param = "size",
-                           iv = iv)
-  }) |> 
-    bindEvent(input$size)
+  add_control_validation(distr = dparse(glue("{namespace}()")),
+                          param = "size",
+                          iv = iv)
 
 }

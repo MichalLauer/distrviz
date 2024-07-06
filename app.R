@@ -80,38 +80,28 @@ ui <- page_sidebar(
 
 server <- function(input, output, session) {
 
-  # Transform the global list into reactiveValues that holds individual server
-  # components
-  distributions <-
-    AVAILABLE_DISTRIBUTIONS |>
-    unname() |> 
-    lapply(function(x) {
-      if (!validate_input(input = x, distribs = AVAILABLE_DISTRIBUTIONS)) {
-        stop('Wrong stuff!')
-      }
-
-      eval(parse(text = glue("distr_{x}_server('{x}')")))
-    }) |>
-    setNames(nm = AVAILABLE_DISTRIBUTIONS) |> 
-    do.call('reactiveValues', args = _)
-
-  # Update the local - current - working distribution
-  distr <- NULL
-  observe({
-    req(validate_input(input = input$distr_select, distribs = AVAILABLE_DISTRIBUTIONS))
-
-    distr <<- distributions[[input$distr_select]]
-  }) |>
-    bindEvent(input$distr_select)
-
   # Add controls for a given distribution
+  redrawing <- FALSE
   output$distr_show <- renderUI({
     req(validate_input(input = input$distr_select, distribs = AVAILABLE_DISTRIBUTIONS))
+    redrawing <<- TRUE
 
     ui_call <- glue("distr_{input$distr_select}_ui('{input$distr_select}')")
-    eval(parse(text = ui_call))
+    ui <- eval(parse(text = ui_call))
+    return(ui)
   }) |>
     bindEvent(input$distr_select)
+  
+  # Add distr_xxx_server only after the UI is rendered so that the validation
+  # does not throw errors and does not slow the app
+  session$onFlushed(function() {
+    if (redrawing) {
+      select <- isolate(input$distr_select)
+      server_call <- glue("distr_{select}_server('{select}')")
+      distr <<- eval(parse(text = server_call))
+      redrawing <<- F
+    }
+  }, once = F)
 
   # Plots ---
   output$pdf <- renderPlotly({
@@ -144,6 +134,7 @@ server <- function(input, output, session) {
     return(paste0(text, collapse = "\n"))
   }) |>
     bindEvent(input$draw, ignoreInit=T)
+
 }
 
 shinyApp(ui, server, options = list(

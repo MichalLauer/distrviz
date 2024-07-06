@@ -28,18 +28,18 @@ distr_beta_server <- function(namespace) {
     observe({
       req(iv$is_valid())
       
-      distr$distr$setParameterValue(shape1 = input$alpha)
+      distr$distr$setParameterValue(shape1 = input$shape1)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$alpha, ignoreInit = TRUE)
+      bindEvent(input$shape1, ignoreInit = TRUE)
 
     observe({
       req(iv$is_valid())
       
-      distr$distr$setParameterValue(shape2 = input$beta)
+      distr$distr$setParameterValue(shape2 = input$shape2)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$beta, ignoreInit = TRUE)
+      bindEvent(input$shape2, ignoreInit = TRUE)
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(

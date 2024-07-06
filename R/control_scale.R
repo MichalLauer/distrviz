@@ -19,12 +19,8 @@ control_scale_ui <- function(namespace,
 control_scale_server <- function(namespace, iv, input = NULL, react_on = NULL) {
 
   # Validator
-  # needs to be inside observe(...) because iv itself is reactive
-  observe({    
-    add_control_validation(distr = dparse(glue("{namespace}()")),
-                           param = "scale",
-                           iv = iv)
-  }) |> 
-    bindEvent(input$scale)
+  add_control_validation(distr = dparse(glue("{namespace}()")),
+                          param = "scale",
+                          iv = iv)
 
 }
