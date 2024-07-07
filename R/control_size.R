@@ -1,19 +1,15 @@
 control_size_ui <- function(namespace,
                             inputId = "size",
                             label = "Size (n)",
-                            value = 10,
-                            min = 1,
-                            max = NA,
-                            step = 1) {
-  ns <- NS(namespace)
-  numericInput(
-    inputId = ns(inputId),
-    label = label,
-    value = value,
-    min = min,
-    max = max,
-    step = step
-  )
+                            step = 1,
+                            param = inputId,
+                            distr = namespace) {
+  control_numeric(namespace = namespace,
+                  inputId = inputId,
+                  label = label,
+                  step = step,
+                  param = inputId,
+                  distr = namespace)
 }
 
 control_size_server <- function(namespace, iv, input = NULL, react_on = NULL) {

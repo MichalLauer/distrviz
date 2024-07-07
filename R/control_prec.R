@@ -1,19 +1,15 @@
 control_prec_ui <- function(namespace,
                             inputId = "prec",
                             label = "Precision (τ)",
-                            value = 1,
-                            min = 0.1,
-                            max = NA,
-                            step = .1) {
-  ns <- NS(namespace)
-  numericInput(
-    inputId = ns(inputId),
-    label = label,
-    value = value,
-    min = min,
-    max = max,
-    step = step
-  )
+                            step = 1,
+                            param = inputId,
+                            distr = namespace) {
+  control_numeric(namespace = namespace,
+                  inputId = inputId,
+                  label = label,
+                  step = step,
+                  param = inputId,
+                  distr = namespace)
 }
 
 control_prec_server <- function(namespace, iv, input = NULL, react_on = NULL) {

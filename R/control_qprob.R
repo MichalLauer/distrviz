@@ -1,19 +1,15 @@
 control_qprob_ui <- function(namespace,
                             inputId = "qprob",
                             label = "Probability (q)",
-                            value = .5,
-                            min = 0,
-                            max = 1,
-                            step = .1) {
-  ns <- NS(namespace)
-  numericInput(
-    inputId = ns(inputId),
-    label = label,
-    value = value,
-    min = min,
-    max = max,
-    step = step
-  )
+                            step = .1,
+                            param = inputId,
+                            distr = namespace) {  
+  control_numeric(namespace = namespace,
+                  inputId = inputId,
+                  label = label,
+                  step = step,
+                  param = inputId,
+                  distr = namespace)
 }
 
 control_qprob_server <- function(namespace, iv, input = NULL, react_on = NULL) {

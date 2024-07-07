@@ -1,24 +1,15 @@
 control_shape1_ui <- function(namespace,
-                              value = 1,
-                              step = 1, 
-                              distr = namespace,
                               inputId = "shape1",
-                              label = "Alpha (α)") {
-  ns <- NS(namespace)
-  p <- dparse(glue("{distr}()"))$parameters()$supports[[inputId]]
-  
-  if (!p$contains(value)) {
-    warning(glue("Default value is not valid for '{inputId}' in '{namespace}'."))
-  }
-
-  numericInput(
-    inputId = ns(inputId),
-    label = label,
-    value = value,
-    min = p$lower,
-    max = p$upper,
-    step = step
-  )
+                              label = "Alpha (α)",
+                              value = 1,
+                              param = inputId,
+                              distr = namespace) {
+  control_numeric(namespace = namespace,
+                  inputId = inputId,
+                  label = label,
+                  step = step,
+                  param = inputId,
+                  distr = namespace)
 }
 
 control_shape1_server <- function(namespace, iv, input = NULL, react_on = NULL) {
