@@ -40,7 +40,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   # "Laplace" = "laplace"
   # "Logistic" = "logistic"
   "Log-Logistic" = "loglogistic",
-  "Log-Normal" = "lognormal"
+  "Log-Normal" = "lognormal",
+  "Pareto" = "pareto"
 )
 
 ui <- page_sidebar(

@@ -1,4 +1,4 @@
-distr_inversegamma_ui <- function(namespace) {
+distr_pareto_ui <- function(namespace) {
   card(
     card_header(
       "Location"
@@ -10,7 +10,7 @@ distr_inversegamma_ui <- function(namespace) {
   )
 }
 
-distr_inversegamma_server <- function(namespace) {
+distr_pareto_server <- function(namespace) {
   ns <- NS(namespace)
 
   moduleServer(namespace, function(input, output, session) {
@@ -40,7 +40,7 @@ distr_inversegamma_server <- function(namespace) {
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
-      distr = InverseGamma$new(),
+      distr = Pareto$new(),
       iv = iv
     )
 
