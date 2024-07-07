@@ -42,8 +42,8 @@ distr_gamma_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("rate", "scale"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "mean")
     }) |>
       bindEvent(input$mean, ignoreInit = TRUE)
 
@@ -54,8 +54,8 @@ distr_gamma_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("mean", "scale"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "rate")
     }) |>
       bindEvent(input$rate, ignoreInit = TRUE)
 
@@ -66,8 +66,8 @@ distr_gamma_server <- function(namespace) {
       distr$react <- runif(1)
       
       update_control(namespace = namespace,
-                     ids = c("rate", "mean"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "scale")
     }) |>
       bindEvent(input$scale, ignoreInit = TRUE)
 

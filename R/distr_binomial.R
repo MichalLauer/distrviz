@@ -41,8 +41,8 @@ distr_binomial_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = "qprob",
-                     distr = distr$distr)
+                     distr = distr$distr,
+                    ignore = "prob")
     }) |>
       bindEvent(input$prob, ignoreInit = TRUE)
 
@@ -53,8 +53,8 @@ distr_binomial_server <- function(namespace) {
       distr$react <- runif(1)
       
       update_control(namespace = namespace,
-                     ids = "prob",
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "qprob")
     }) |>
       bindEvent(input$qprob, ignoreInit = TRUE)
 

@@ -1,9 +1,9 @@
 control_var_ui <- function(namespace,
-                                inputId = "var",
-                                label = "Variance (σ²)",
-                                step = 1,
-                                param = inputId,
-                                distr = namespace) {
+                           inputId = "var",
+                           label = "Variance (σ²)",
+                           step = 1,
+                           param = inputId,
+                           distr = namespace) {
   control_numeric(namespace = namespace,
                   inputId = inputId,
                   label = label,

@@ -52,8 +52,8 @@ distr_normal_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("sd", "prec"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "var")
     }) |>
       bindEvent(input$var, ignoreInit = TRUE)
 
@@ -64,8 +64,8 @@ distr_normal_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("var", "prec"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "sd")
     }) |>
       bindEvent(input$sd, ignoreInit = TRUE)
 
@@ -76,8 +76,8 @@ distr_normal_server <- function(namespace) {
       distr$react <- runif(1)
       
       update_control(namespace = namespace,
-                     ids = c("var", "sd"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "prec")
     }) |>
       bindEvent(input$prec, ignoreInit = TRUE)
 

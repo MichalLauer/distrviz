@@ -8,6 +8,7 @@ library(bslib)
 library(distr6)
 library(extraDistr)
 library(pracma)
+library(actuar)
 
 library(glue)
 library(dplyr)
@@ -38,6 +39,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Inverse Gamma" = "inversegamma",
   # "Laplace" = "laplace"
   # "Logistic" = "logistic"
+  "Log-Logistic" = "loglogistic",
+  "Log-Normal" = "lognormal"
 )
 
 ui <- page_sidebar(

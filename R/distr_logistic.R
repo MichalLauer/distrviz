@@ -50,8 +50,8 @@ distr_logistic_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("sd"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "scale")
     }) |>
       bindEvent(input$scale, ignoreInit = TRUE)
 
@@ -62,8 +62,8 @@ distr_logistic_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("scale"),
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "sd")
     }) |>
       bindEvent(input$sd, ignoreInit = TRUE)
 

@@ -41,8 +41,8 @@ distr_erlang_server <- function(namespace) {
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = "scale",
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "rate")
     }) |>
       bindEvent(input$rate, ignoreInit = TRUE)
 
@@ -53,8 +53,8 @@ distr_erlang_server <- function(namespace) {
       distr$react <- runif(1)
       
       update_control(namespace = namespace,
-                     ids = "rate",
-                     distr = distr$distr)
+                     distr = distr$distr,
+                     ignore = "scale")
     }) |>
       bindEvent(input$scale, ignoreInit = TRUE)
 
