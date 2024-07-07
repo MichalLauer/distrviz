@@ -1,4 +1,4 @@
-distr_normal_ui <- function(namespace) {
+distr_laplace_ui <- function(namespace) {
   ns <- NS(namespace)
   tagList(
     card(
@@ -15,14 +15,13 @@ distr_normal_ui <- function(namespace) {
       ),
       card_body(
         control_var_ui(namespace),
-        control_sd_ui(namespace),
-        control_prec_ui(namespace)
+        control_scale_ui(namespace)
       )
     )
   )
 }
 
-distr_normal_server <- function(namespace) {
+distr_laplace_server <- function(namespace) {
   ns <- NS(namespace)
 
   moduleServer(namespace, function(input, output, session) {
@@ -31,8 +30,7 @@ distr_normal_server <- function(namespace) {
     iv <- InputValidator$new()
     control_mean_server(namespace=namespace, iv=iv)
     control_var_server(namespace=namespace, iv=iv)
-    control_sd_server(namespace=namespace, iv=iv)
-    control_prec_server(namespace=namespace, iv=iv)
+    control_scale_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------
@@ -48,11 +46,11 @@ distr_normal_server <- function(namespace) {
     observe({
       req(iv$is_valid())
 
-      distr$distr <- Normal$new(mean = input$mean, var = input$var)
+      distr$distr <- Laplace$new(mean = input$mean, var = input$var)
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("sd", "prec"),
+                     ids = c("scale"),
                      distr = distr$distr)
     }) |>
       bindEvent(input$var, ignoreInit = TRUE)
@@ -60,30 +58,18 @@ distr_normal_server <- function(namespace) {
     observe({
       req(iv$is_valid())
 
-      distr$distr <- Normal$new(mean = input$mean, sd = input$sd)
+      distr$distr <- Laplace$new(mean = input$mean, scale = input$scale)
       distr$react <- runif(1)
 
       update_control(namespace = namespace,
-                     ids = c("var", "prec"),
+                     ids = c("var"),
                      distr = distr$distr)
     }) |>
-      bindEvent(input$sd, ignoreInit = TRUE)
-
-    observe({
-      req(iv$is_valid())
-
-      distr$distr <- Normal$new(mean = input$mean, prec = input$prec)
-      distr$react <- runif(1)
-      
-      update_control(namespace = namespace,
-                     ids = c("var", "sd"),
-                     distr = distr$distr)
-    }) |>
-      bindEvent(input$prec, ignoreInit = TRUE)
+      bindEvent(input$scale, ignoreInit = TRUE)
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
-      distr = Normal$new(),
+      distr = Laplace$new(),
       iv = iv
     )
 

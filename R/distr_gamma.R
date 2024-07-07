@@ -40,6 +40,7 @@ distr_gamma_server <- function(namespace) {
       
       distr$distr <- Gamma$new(mean = input$mean, shape = input$shape)
       distr$react <- runif(1)
+
       update_control(namespace = namespace,
                      ids = c("rate", "scale"),
                      distr = distr$distr)
@@ -51,6 +52,7 @@ distr_gamma_server <- function(namespace) {
       
       distr$distr <- Gamma$new(rate = input$rate, shape = input$shape)
       distr$react <- runif(1)
+
       update_control(namespace = namespace,
                      ids = c("mean", "scale"),
                      distr = distr$distr)
@@ -62,6 +64,7 @@ distr_gamma_server <- function(namespace) {
       
       distr$distr <- Gamma$new(scale = input$scale, shape = input$shape)
       distr$react <- runif(1)
+      
       update_control(namespace = namespace,
                      ids = c("rate", "mean"),
                      distr = distr$distr)

@@ -7,6 +7,7 @@ library(bslib)
 
 library(distr6)
 library(extraDistr)
+library(pracma)
 
 library(glue)
 library(dplyr)
@@ -31,7 +32,12 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "F-Distribution" = "fdistribution",
   "Noncentral F-Distribution" = "fdistributionnoncentral",
   "Frechet" = "frechet",
-  "Gamma" = "gamma"
+  "Gamma" = "gamma",
+  "Gompertz" = "gompertz",
+  "Gumbel" = "gumbel",
+  "Inverse Gamma" = "inversegamma",
+  # "Laplace" = "laplace"
+  # "Logistic" = "logistic"
 )
 
 ui <- page_sidebar(

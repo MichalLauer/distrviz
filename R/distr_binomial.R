@@ -39,6 +39,7 @@ distr_binomial_server <- function(namespace) {
       
       distr$distr <- Binomial$new(size = input$size, prob = input$prob)
       distr$react <- runif(1)
+
       update_control(namespace = namespace,
                      ids = "qprob",
                      distr = distr$distr)
@@ -50,6 +51,7 @@ distr_binomial_server <- function(namespace) {
       
       distr$distr <- Binomial$new(size = input$size, qprob = input$qprob)
       distr$react <- runif(1)
+      
       update_control(namespace = namespace,
                      ids = "prob",
                      distr = distr$distr)

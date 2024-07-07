@@ -39,6 +39,7 @@ distr_erlang_server <- function(namespace) {
       
       distr$distr <- Erlang$new(rate = input$rate, shape = input$shape)
       distr$react <- runif(1)
+
       update_control(namespace = namespace,
                      ids = "scale",
                      distr = distr$distr)
@@ -50,6 +51,7 @@ distr_erlang_server <- function(namespace) {
       
       distr$distr <- Erlang$new(scale = input$scale, shape = input$shape)
       distr$react <- runif(1)
+      
       update_control(namespace = namespace,
                      ids = "rate",
                      distr = distr$distr)

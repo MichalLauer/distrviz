@@ -1,4 +1,4 @@
-control_variance_ui <- function(namespace,
+control_var_ui <- function(namespace,
                                 inputId = "var",
                                 label = "Variance (σ²)",
                                 step = 1,
@@ -12,7 +12,7 @@ control_variance_ui <- function(namespace,
                   distr = distr)
 }
 
-control_variance_server <- function(namespace, iv) {
+control_var_server <- function(namespace, iv) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),
