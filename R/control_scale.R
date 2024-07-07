@@ -8,8 +8,8 @@ control_scale_ui <- function(namespace,
                   inputId = inputId,
                   label = label,
                   step = step,
-                  param = inputId,
-                  distr = namespace)
+                  param = param,
+                  distr = distr)
 }
 
 control_scale_server <- function(namespace, iv, input = NULL, react_on = NULL) {

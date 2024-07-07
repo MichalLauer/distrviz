@@ -6,6 +6,8 @@ library(htmltools)
 library(bslib)
 
 library(distr6)
+library(extraDistr)
+
 library(glue)
 library(dplyr)
 
@@ -23,7 +25,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Noncentral ChiSquared" = "chisquarednoncentral",
   "Arcsine" = "arcsine",
   "Cauchy" = "cauchy",
-  "Binomial" = "binomial"
+  "Binomial" = "binomial",
+  "Erlang" = "erlang"
 )
 
 ui <- page_sidebar(

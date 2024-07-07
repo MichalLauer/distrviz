@@ -16,5 +16,11 @@ transformations <- list(
   ),
   "qprob" = list(
     "prob" = function(x) return(1 - x)
+  ),
+  "rate" = list(
+    "scale" = function(x) return(1 / x)
+  ),
+  "scale" = list(
+    "rate" = function(x) return(1 / x)
   )
 )

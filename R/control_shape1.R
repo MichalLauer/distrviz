@@ -1,15 +1,15 @@
 control_shape1_ui <- function(namespace,
                               inputId = "shape1",
                               label = "Alpha (α)",
-                              value = 1,
+                              step = 1,
                               param = inputId,
                               distr = namespace) {
   control_numeric(namespace = namespace,
                   inputId = inputId,
                   label = label,
                   step = step,
-                  param = inputId,
-                  distr = namespace)
+                  param = param,
+                  distr = distr)
 }
 
 control_shape1_server <- function(namespace, iv, input = NULL, react_on = NULL) {

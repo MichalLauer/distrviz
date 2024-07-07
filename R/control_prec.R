@@ -8,8 +8,8 @@ control_prec_ui <- function(namespace,
                   inputId = inputId,
                   label = label,
                   step = step,
-                  param = inputId,
-                  distr = namespace)
+                  param = param,
+                  distr = distr)
 }
 
 control_prec_server <- function(namespace, iv, input = NULL, react_on = NULL) {
