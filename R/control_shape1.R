@@ -12,7 +12,7 @@ control_shape1_ui <- function(namespace,
                   distr = distr)
 }
 
-control_shape1_server <- function(namespace, iv, input = NULL, react_on = NULL) {
+control_shape1_server <- function(namespace, iv) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),

@@ -28,10 +28,8 @@ distr_binomial_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_prob_server(namespace=namespace, iv=iv, input=input,
-                        react_on = "qprob")
-    control_qprob_server(namespace=namespace, iv=iv, input=input,
-                         react_on = "prob")
+    control_prob_server(namespace=namespace, iv=iv, input=input)
+    control_qprob_server(namespace=namespace, iv=iv, input=input)
     control_size_server(namespace=namespace, iv=iv)
     iv$enable()
     
@@ -41,6 +39,9 @@ distr_binomial_server <- function(namespace) {
       
       distr$distr <- Binomial$new(size = input$size, prob = input$prob)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = "qprob",
+                     distr = distr$distr)
     }) |>
       bindEvent(input$prob, ignoreInit = TRUE)
 
@@ -49,6 +50,9 @@ distr_binomial_server <- function(namespace) {
       
       distr$distr <- Binomial$new(size = input$size, qprob = input$qprob)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = "prob",
+                     distr = distr$distr)
     }) |>
       bindEvent(input$qprob, ignoreInit = TRUE)
 

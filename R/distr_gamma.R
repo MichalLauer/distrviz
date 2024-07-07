@@ -1,11 +1,11 @@
-distr_erlang_ui <- function(namespace) {
-  ns <- NS(namespace)
+distr_gamma_ui <- function(namespace) {
   tagList(
     card(
       card_header(
         "Location"
       ),
       card_body(
+        control_mean_ui(namespace),
         control_rate_ui(namespace),
         control_scale_ui(namespace)
       )
@@ -21,15 +21,16 @@ distr_erlang_ui <- function(namespace) {
   )
 }
 
-distr_erlang_server <- function(namespace) {
+distr_gamma_server <- function(namespace) {
   ns <- NS(namespace)
 
   moduleServer(namespace, function(input, output, session) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_rate_server(namespace=namespace, iv=iv, input=input)
-    control_scale_server(namespace=namespace, iv=iv, input=input)
+    control_mean_server(namespace=namespace, iv=iv)
+    control_rate_server(namespace=namespace, iv=iv)
+    control_scale_server(namespace=namespace, iv=iv)
     control_shape_server(namespace=namespace, iv=iv)
     iv$enable()
     
@@ -37,10 +38,21 @@ distr_erlang_server <- function(namespace) {
     observe({
       req(iv$is_valid())
       
-      distr$distr <- Erlang$new(rate = input$rate, shape = input$shape)
+      distr$distr <- Gamma$new(mean = input$mean, shape = input$shape)
       distr$react <- runif(1)
       update_control(namespace = namespace,
-                     ids = "scale",
+                     ids = c("rate", "scale"),
+                     distr = distr$distr)
+    }) |>
+      bindEvent(input$mean, ignoreInit = TRUE)
+
+    observe({
+      req(iv$is_valid())
+      
+      distr$distr <- Gamma$new(rate = input$rate, shape = input$shape)
+      distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = c("mean", "scale"),
                      distr = distr$distr)
     }) |>
       bindEvent(input$rate, ignoreInit = TRUE)
@@ -48,10 +60,10 @@ distr_erlang_server <- function(namespace) {
     observe({
       req(iv$is_valid())
       
-      distr$distr <- Erlang$new(scale = input$scale, shape = input$shape)
+      distr$distr <- Gamma$new(scale = input$scale, shape = input$shape)
       distr$react <- runif(1)
       update_control(namespace = namespace,
-                     ids = "rate",
+                     ids = c("rate", "mean"),
                      distr = distr$distr)
     }) |>
       bindEvent(input$scale, ignoreInit = TRUE)
@@ -66,7 +78,7 @@ distr_erlang_server <- function(namespace) {
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
-      distr = Erlang$new(),
+      distr = Gamma$new(),
       iv = iv
     )
 

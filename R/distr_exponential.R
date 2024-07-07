@@ -17,10 +17,8 @@ distr_exponential_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_rate_server(namespace=namespace, iv=iv, input=input,
-                        react_on = "scale")
-    control_scale_server(namespace=namespace, iv=iv, input=input,
-                         react_on = "rate")
+    control_rate_server(namespace=namespace, iv=iv)
+    control_scale_server(namespace=namespace, iv=iv)
     iv$enable()
     
     # Reactor ------------------------------------------------------------------
@@ -29,6 +27,9 @@ distr_exponential_server <- function(namespace) {
       
       distr$distr <- Exponential$new(rate = input$rate)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = "scale",
+                     distr = distr$distr)
     }) |>
       bindEvent(input$rate, ignoreInit = TRUE)
 
@@ -37,6 +38,9 @@ distr_exponential_server <- function(namespace) {
       
       distr$distr <- Exponential$new(scale = input$scale)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = "rate",
+                     distr = distr$distr)
     }) |>
       bindEvent(input$scale, ignoreInit = TRUE)
 

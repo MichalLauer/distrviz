@@ -30,12 +30,9 @@ distr_normal_server <- function(namespace) {
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
     control_mean_server(namespace=namespace, iv=iv)
-    control_variance_server(namespace=namespace, iv=iv, input=input,
-                            react_on = c("sd", "prec"))
-    control_sd_server(namespace=namespace, iv=iv, input=input,
-                      react_on = c("var", "prec"))
-    control_prec_server(namespace=namespace, iv=iv, input=input,
-                        react_on = c("var", "sd"))
+    control_variance_server(namespace=namespace, iv=iv)
+    control_sd_server(namespace=namespace, iv=iv)
+    control_prec_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------
@@ -53,6 +50,9 @@ distr_normal_server <- function(namespace) {
 
       distr$distr <- Normal$new(mean = input$mean, var = input$var)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = c("sd", "prec"),
+                     distr = distr$distr)
     }) |>
       bindEvent(input$var, ignoreInit = TRUE)
 
@@ -61,6 +61,9 @@ distr_normal_server <- function(namespace) {
 
       distr$distr <- Normal$new(mean = input$mean, sd = input$sd)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = c("var", "prec"),
+                     distr = distr$distr)
     }) |>
       bindEvent(input$sd, ignoreInit = TRUE)
 
@@ -69,6 +72,9 @@ distr_normal_server <- function(namespace) {
 
       distr$distr <- Normal$new(mean = input$mean, prec = input$prec)
       distr$react <- runif(1)
+      update_control(namespace = namespace,
+                     ids = c("var", "sd"),
+                     distr = distr$distr)
     }) |>
       bindEvent(input$prec, ignoreInit = TRUE)
 

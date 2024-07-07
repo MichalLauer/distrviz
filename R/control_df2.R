@@ -12,7 +12,7 @@ control_df2_ui <- function(namespace,
                   distr = distr)
 }
 
-control_df2_server <- function(namespace, iv, input = NULL, react_on = NULL) {
+control_df2_server <- function(namespace, iv) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),

@@ -12,11 +12,11 @@ control_upper_ui <- function(namespace,
                   distr = distr)
 }
 
-control_upper_server <- function(namespace, iv, input = NULL, react_on = NULL) {
+control_upper_server <- function(namespace, iv) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),
-                          param = "upper",
-                          iv = iv)
+                         param = "upper",
+                         iv = iv)
   
 }

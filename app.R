@@ -29,7 +29,9 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Erlang" = "erlang",
   "Exponential" = "exponential",
   "F-Distribution" = "fdistribution",
-  "Noncentral F-Distribution" = "fdistributionnoncentral"
+  "Noncentral F-Distribution" = "fdistributionnoncentral",
+  "Frechet" = "frechet",
+  "Gamma" = "gamma"
 )
 
 ui <- page_sidebar(
