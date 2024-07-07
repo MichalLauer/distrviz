@@ -48,7 +48,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Noncentral Student" = "studenttnoncentral",
   "Triangular" = "triangular",
   # "Weibull" = "weibull",
-  "Wald" = "wald"
+  "Wald" = "wald",
+  "Uniform" = "uniform"
 )
 
 ui <- page_sidebar(
