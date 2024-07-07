@@ -6,9 +6,10 @@ library(htmltools)
 library(bslib)
 
 library(distr6)
-library(extraDistr)
-library(pracma)
-library(actuar)
+# library(extraDistr)
+# library(pracma)
+# library(actuar)
+# library(GoFKernel)
 
 library(glue)
 library(dplyr)
@@ -37,8 +38,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Gompertz" = "gompertz",
   "Gumbel" = "gumbel",
   "Inverse Gamma" = "inversegamma",
-  # "Laplace" = "laplace"
-  # "Logistic" = "logistic"
+  # "Laplace" = "laplace",
+  # "Logistic" = "logistic",
   "Log-Logistic" = "loglogistic",
   "Log-Normal" = "lognormal",
   "Pareto" = "pareto",
@@ -46,7 +47,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Shifted Log-Logistic" = "shiftedloglogistic",
   "Noncentral Student" = "studenttnoncentral",
   "Triangular" = "triangular",
-  # "Weibull" = "weibull"
+  # "Weibull" = "weibull",
+  "Wald" = "wald"
 )
 
 ui <- page_sidebar(
