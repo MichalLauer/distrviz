@@ -43,7 +43,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Log-Normal" = "lognormal",
   "Pareto" = "pareto",
   "Rayleigh" = "rayleigh",
-  "Shifted Log-Logistic" = "shiftedloglogistic"
+  "Shifted Log-Logistic" = "shiftedloglogistic",
+  "Noncentral Student"
 )
 
 ui <- page_sidebar(
