@@ -44,7 +44,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Pareto" = "pareto",
   "Rayleigh" = "rayleigh",
   "Shifted Log-Logistic" = "shiftedloglogistic",
-  "Noncentral Student"
+  "Noncentral Student" = "studenttnoncentral",
+  "Triangular" = "triangular"
 )
 
 ui <- page_sidebar(

@@ -16,7 +16,7 @@ control_mode_server <- function(namespace, iv) {
 
   # Validator
   add_control_validation(distr = dparse(glue("{namespace}()")),
-                          param = "mode",
-                          iv = iv)
+                         param = "mode",
+                         iv = iv)
 
 }

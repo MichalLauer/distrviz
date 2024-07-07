@@ -21,12 +21,22 @@ distr_arcsine_server <- function(namespace) {
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
     control_lower_server(namespace=namespace, iv=iv)
+    observe({
+      iv$add_rule("lower", function(l) {
+        u <- as.numeric(input$upper)
+        if ( !(l <= u) ) {
+          "'Lower' must be <= 'Upper'"
+        }
+      })
+    }) |> 
+      bindEvent(input$lower)
+
     control_upper_server(namespace=namespace, iv=iv)
     observe({
       iv$add_rule("upper", function(u) {
         l <- as.numeric(input$lower)
-        if (u < l) {
-          "'Lower' must be <= 'Upper'"
+        if ( !(u >= l) ) {
+          "'Upper' must be >= 'Lower'"
         }
       })
     }) |> 
@@ -38,18 +48,11 @@ distr_arcsine_server <- function(namespace) {
     observe({
       req(iv$is_valid())
 
-      distr$distr$setParameterValue(lower = input$lower)
+      distr$distr <- Arcsine$new(lower = input$lower, upper = input$upper)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$lower, ignoreInit = TRUE)
+      bindEvent(input$lower, input$upper, ignoreInit = TRUE)
 
-    observe({
-      req(iv$is_valid())
-      
-      distr$distr$setParameterValue(upper = input$upper)
-      distr$react <- runif(1)
-    }) |>
-      bindEvent(input$upper, ignoreInit = TRUE)
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
