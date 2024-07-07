@@ -28,8 +28,8 @@ distr_erlang_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_rate_server(namespace=namespace, iv=iv, input=input)
-    control_scale_server(namespace=namespace, iv=iv, input=input)
+    control_rate_server(namespace=namespace, iv=iv)
+    control_scale_server(namespace=namespace, iv=iv)
     control_shape_server(namespace=namespace, iv=iv)
     iv$enable()
     

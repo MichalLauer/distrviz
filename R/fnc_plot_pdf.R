@@ -1,11 +1,11 @@
 plot_pdf <- function(distr, npoints = 3000) {
 
-  l <- distr$properties$support$length
+  t <- distr$traits$valueSupport
 
-  if (l == Inf) {
+  if (t == "continuous") {
     plot <- .plot_pdf_continuous(distr = distr, npoints = npoints)
   } else {
-    plot <- .plot_pdf_discrete(distr = distr, length = l)
+    plot <- .plot_pdf_discrete(distr = distr)
   }
 
   ggplotly(plot) |>
@@ -52,17 +52,22 @@ plot_pdf <- function(distr, npoints = 3000) {
   
 }
 
-.plot_pdf_discrete <- function(distr, length) {
+.plot_pdf_discrete <- function(distr) {
+
+  s <- distr$properties$support
+  if (s$range == Inf) {
+    to <- distr$quantile(.99)
+  } else {
+    to <- s$max
+  }
 
   tibble(
-    x = seq(from = distr$properties$support$lower,
-            to = distr$properties$support$upper,
-            length.out = length),
+    x = seq(from = s$min, to = to),
     y = distr$pdf(x)
   ) |>
   ggplot(aes(x = x, y = y)) +
   geom_col() + 
-  scale_x_continuous(breaks = seq_len(length) - 1) +
+  scale_x_continuous(breaks = seq_len(to + 1) - 1) +
   theme_bw() +
   theme(
     panel.grid.major.y = element_blank(),

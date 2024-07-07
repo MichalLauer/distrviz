@@ -38,8 +38,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Gompertz" = "gompertz",
   "Gumbel" = "gumbel",
   "Inverse Gamma" = "inversegamma",
-  # "Laplace" = "laplace",
-  # "Logistic" = "logistic",
+  "Laplace" = "laplace", # VALIDATE
+  "Logistic" = "logistic", # VALIDATE
   "Log-Logistic" = "loglogistic",
   "Log-Normal" = "lognormal",
   "Pareto" = "pareto",
@@ -47,9 +47,10 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Shifted Log-Logistic" = "shiftedloglogistic",
   "Noncentral Student" = "studenttnoncentral",
   "Triangular" = "triangular",
-  # "Weibull" = "weibull",
+  "Weibull" = "weibull", # VALIDATE
   "Wald" = "wald",
-  "Uniform" = "uniform"
+  "Uniform" = "uniform",
+  "Poisson" = "poisson"
 )
 
 ui <- page_sidebar(

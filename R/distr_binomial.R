@@ -28,8 +28,8 @@ distr_binomial_server <- function(namespace) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_prob_server(namespace=namespace, iv=iv, input=input)
-    control_qprob_server(namespace=namespace, iv=iv, input=input)
+    control_prob_server(namespace=namespace, iv=iv)
+    control_qprob_server(namespace=namespace, iv=iv)
     control_size_server(namespace=namespace, iv=iv)
     iv$enable()
     
