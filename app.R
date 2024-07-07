@@ -50,7 +50,8 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Weibull" = "weibull", # VALIDATE
   "Wald" = "wald",
   "Uniform" = "uniform",
-  "Poisson" = "poisson"
+  "Poisson" = "poisson",
+  "Negative Binomial" = "negativebinomial"
 )
 
 ui <- page_sidebar(
