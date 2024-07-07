@@ -1,4 +1,4 @@
-distr_beta_ui <- function(namespace) {
+distr_fdistribution_ui <- function(namespace) {
   ns <- NS(namespace)
   tagList(
     card(
@@ -6,44 +6,44 @@ distr_beta_ui <- function(namespace) {
         "Parameters"
       ),
       card_body(
-        control_shape1_ui(namespace),
-        control_shape2_ui(namespace)
+        control_df1_ui(namespace),
+        control_df2_ui(namespace)
       )
     )
   )
 }
 
-distr_beta_server <- function(namespace) {
+distr_fdistribution_server <- function(namespace) {
   ns <- NS(namespace)
 
   moduleServer(namespace, function(input, output, session) {
 
     # Validators ---------------------------------------------------------------
     iv <- InputValidator$new()
-    control_shape1_server(namespace=namespace, iv=iv)
-    control_shape2_server(namespace=namespace, iv=iv)
+    control_df1_server(namespace=namespace, iv=iv)
+    control_df2_server(namespace=namespace, iv=iv)
     iv$enable()
 
     # Reactor ------------------------------------------------------------------
     observe({
       req(iv$is_valid())
-      
-      distr$distr$setParameterValue(shape1 = input$shape1)
+
+      distr$distr$setParameterValue(df1 = input$df1)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$shape1, ignoreInit = TRUE)
+      bindEvent(input$df1, ignoreInit = TRUE)
 
     observe({
       req(iv$is_valid())
-      
-      distr$distr$setParameterValue(shape2 = input$shape2)
+
+      distr$distr$setParameterValue(df2 = input$df2)
       distr$react <- runif(1)
     }) |>
-      bindEvent(input$shape2, ignoreInit = TRUE)
+      bindEvent(input$df2, ignoreInit = TRUE)
 
     # Distribution controller --------------------------------------------------
     distr <- reactiveValues(
-      distr = Beta$new(),
+      distr = FDistribution$new(),
       iv = iv
     )
 

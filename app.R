@@ -26,7 +26,10 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Arcsine" = "arcsine",
   "Cauchy" = "cauchy",
   "Binomial" = "binomial",
-  "Erlang" = "erlang"
+  "Erlang" = "erlang",
+  "Exponential" = "exponential",
+  "F-Distribution" = "fdistribution",
+  "Noncentral F-Distribution" = "fdistributionnoncentral"
 )
 
 ui <- page_sidebar(
