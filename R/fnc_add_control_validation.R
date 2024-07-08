@@ -13,12 +13,13 @@ add_control_validation <- function(distr, param, iv, input=param) {
 
 .add_control_lower <- function(supp, input, iv) {
 
-
   lower_bound <- strsplit(supp$type, "")[[1]][1]
   if (lower_bound == "(") {
     iv$add_rule(input, sv_gt(supp$lower))
   } else if (lower_bound == "[") {
     iv$add_rule(input, sv_gte(supp$lower))
+  } else if (lower_bound == "{") {
+    # handled in .add_control_set
   } else {
     warning(glue("Lower bound '{lower_bound}' not implemented"))
   }
@@ -29,7 +30,9 @@ add_control_validation <- function(distr, param, iv, input=param) {
   if (upper_bound == ")") {
     iv$add_rule(input, sv_lt(supp$upper))
   } else if (upper_bound == "]") {
-    iv$add_rule(input, sv_lte(supp$upper))
+    iv$add_rule(input, sv_in_set(unlist(supp$elements)))
+  } else if (upper_bound == "}") {
+    # handled in .add_control_set
   } else {
     warning(glue("Upper bound '{upper_bound}' not implemented"))
   }
@@ -39,8 +42,10 @@ add_control_validation <- function(distr, param, iv, input=param) {
   set <- supp$properties$countability
   if (set == "uncountable") {
     # do nothing - uncountable is the default
-  } else if (set == "countably infinite" || set == "countably finite") {
+  } else if (set == "countably infinite") {
     iv$add_rule(input, sv_integer())
+  } else if (set == "countably finite") {
+    iv$add_rule(input, sv_in_set(unlist(supp$elements)))
   } else {
     warning(glue("Set '{set}' not implemented"))
   }

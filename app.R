@@ -51,7 +51,11 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "Wald" = "wald",
   "Uniform" = "uniform",
   "Poisson" = "poisson",
-  "Negative Binomial" = "negativebinomial"
+  "Negative Binomial" = "negativebinomial",
+  "Bernoulli" = "bernoulli",
+  "Logarithmic" = "logarithmic",
+  "Geometric" = "geometric",
+  "Hypergeometric" = "hypergeometric"
 )
 
 ui <- page_sidebar(
