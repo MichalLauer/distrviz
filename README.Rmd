@@ -17,8 +17,9 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The goal of distrviz is to vizualize (hopefully) every distribution that is 
-available in the [`{distr6}`](https://github.com/xoopR/distr6) package. So far,
-these distributions are available:
+available in the [`{distr6}`](https://github.com/xoopR/distr6) package.
+
+## Imlemented distributions
 
 ```{r include=F}
 AVAILABLE_DISTRIBUTIONS <- c(
@@ -29,22 +30,77 @@ AVAILABLE_DISTRIBUTIONS <- c(
   "ChiSquared" = "chisquared",
   "Noncentral ChiSquared" = "chisquarednoncentral",
   "Arcsine" = "arcsine",
-  "Cauchy" = "cauchy"
+  "Cauchy" = "cauchy",
+  "Binomial" = "binomial",
+  "Erlang" = "erlang",
+  "Exponential" = "exponential",
+  "F-Distribution" = "fdistribution",
+  "Noncentral F-Distribution" = "fdistributionnoncentral",
+  "Frechet" = "frechet",
+  "Gamma" = "gamma",
+  "Gompertz" = "gompertz",
+  "Gumbel" = "gumbel",
+  "Inverse Gamma" = "inversegamma",
+  "Laplace" = "laplace",
+  "Logistic" = "logistic",
+  "Log-Logistic" = "loglogistic",
+  "Log-Normal" = "lognormal",
+  "Pareto" = "pareto",
+  "Rayleigh" = "rayleigh",
+  "Shifted Log-Logistic" = "shiftedloglogistic",
+  "Noncentral Student" = "studenttnoncentral",
+  "Triangular" = "triangular",
+  "Weibull" = "weibull",
+  "Wald" = "wald",
+  "Uniform" = "uniform",
+  "Poisson" = "poisson",
+  "Negative Binomial" = "negativebinomial",
+  "Bernoulli" = "bernoulli",
+  "Logarithmic" = "logarithmic",
+  "Geometric" = "geometric",
+  "Hypergeometric" = "hypergeometric",
+  "Degenerate" = "degenerate",
+  "Discrete uniform" = "discreteuniform",
+  "Weighted discrete" = "weighteddiscrete"
 )
 ```
 
-```{r echo=F}
+Currently, these distributions are supported.
+
+```{r include=F}
 distr6::listDistributions() |> 
   dplyr::as_tibble() |> 
   dplyr::select(Distribution = ClassName,
-         Type = ValueSupport) |> 
+                Type = ValueSupport,
+                Variate = VariateForm) |> 
   dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
-  dplyr::filter(Type != "continuous", !Available) |>
+  dplyr::filter(Available) |>
   gt::gt()
 ```
 
-Todo:
- - properly name parameter groups (*central tendency* etc)
+
+## To implement
+
+Not all distributions are yet implemented.
+
+```{r include=F}
+distr6::listDistributions() |> 
+  dplyr::as_tibble() |> 
+  dplyr::select(Distribution = ClassName,
+                Type = ValueSupport,
+                Variate = VariateForm) |> 
+  dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
+  dplyr::filter(!Available) |>
+  dplyr::filter(!(Distribution %in% ignore)) |>
+  gt::gt()
+```
+
+## Todo
+
+List of things I'd like to implement/fix in the near future:
+
+ - properly name parameter groups
+ - Wald is really slow because of quantile
  - fix iv javascript error on load
- - add distribs
+ - Weighted kinda? works
  - add `Kappa` and `Omega` parametrization to `beta`
