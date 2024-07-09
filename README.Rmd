@@ -23,6 +23,8 @@ knitr::opts_chunk$set(
 The goal of distrviz is to vizualize (hopefully) every distribution that is 
 available in the [`{distr6}`](https://github.com/xoopR/distr6) package.
 
+![](assets/readme_front.png "Normal distribution")
+
 ## Imlemented distributions
 
 ```{r include=F}
@@ -78,7 +80,9 @@ distr6::listDistributions() |>
                 Type = ValueSupport,
                 Variate = VariateForm) |> 
   dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
-  dplyr::filter(Available)
+  dplyr::filter(Available) |>
+  gt::gt() |>
+  gt::as_raw_html()
 ```
 
 
