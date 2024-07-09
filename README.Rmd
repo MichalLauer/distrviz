@@ -67,7 +67,7 @@ AVAILABLE_DISTRIBUTIONS <- c(
 
 Currently, these distributions are supported.
 
-```{r include=F}
+```{r echo=F}
 distr6::listDistributions() |> 
   dplyr::as_tibble() |> 
   dplyr::select(Distribution = ClassName,
@@ -83,7 +83,7 @@ distr6::listDistributions() |>
 
 Not all distributions are yet implemented.
 
-```{r include=F}
+```{r echo=F}
 distr6::listDistributions() |> 
   dplyr::as_tibble() |> 
   dplyr::select(Distribution = ClassName,
