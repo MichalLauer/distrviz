@@ -4,6 +4,10 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+```{r, eval = FALSE, include = FALSE}
+rmarkdown::render(input = "README.Rmd", output_options = list(html_preview = FALSE))
+```
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -90,7 +94,9 @@ distr6::listDistributions() |>
                 Variate = VariateForm) |> 
   dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
   dplyr::filter(!Available) |>
-  dplyr::filter(!(Distribution %in% ignore))
+  dplyr::filter(!(Distribution %in% ignore)) |>
+  gt::gt() |>
+  gt::as_raw_html()
 ```
 
 ## Todo
