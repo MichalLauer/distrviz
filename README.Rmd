@@ -74,8 +74,7 @@ distr6::listDistributions() |>
                 Type = ValueSupport,
                 Variate = VariateForm) |> 
   dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
-  dplyr::filter(Available) |>
-  gt::gt()
+  dplyr::filter(Available)
 ```
 
 
@@ -91,8 +90,7 @@ distr6::listDistributions() |>
                 Variate = VariateForm) |> 
   dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
   dplyr::filter(!Available) |>
-  dplyr::filter(!(Distribution %in% ignore)) |>
-  gt::gt()
+  dplyr::filter(!(Distribution %in% ignore))
 ```
 
 ## Todo
