@@ -13,3 +13,7 @@ update_control <- function(namespace, distr, ignore, group = "linked") {
   }
 }
 
+update_control2 <- function(namespace, inputId, value) {
+  js <- glue("$('#{namespace}-{inputId}').val('{value}')")
+  runjs(js)
+}
