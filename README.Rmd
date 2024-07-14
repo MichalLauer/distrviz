@@ -35,6 +35,9 @@ The main features are:
     the standard deviation and precision.
  - Basich characteristics
 
+The app can be seen live [here](https://distrviz-ctt2nrcxzq-ey.a.run.app/).
+Note that it may take longer time to load due to budgeting.
+
 ## Imlemented distributions
 
 ```{r include=F}
@@ -95,7 +98,6 @@ distr6::listDistributions() |>
   gt::as_raw_html()
 ```
 
-
 ## To implement
 
 Not all distributions are yet implemented.
@@ -108,18 +110,15 @@ distr6::listDistributions() |>
                 Variate = VariateForm) |> 
   dplyr::mutate(Available = tolower(Distribution) %in% AVAILABLE_DISTRIBUTIONS) |> 
   dplyr::filter(!Available) |>
-  dplyr::filter(!(Distribution %in% ignore)) |>
   gt::gt() |>
   gt::as_raw_html()
 ```
 
-## Todo
+ # Deploy steps
 
-List of things I'd like to implement/fix in the near future:
-
- - properly name parameter groups
- - Wald is really slow because of quantile
- - fix iv javascript error on load
- - Weighted kinda? works
- - add `Kappa` and `Omega` parametrization to `beta`
- - Comparison of distributions from the same family
+ ```docker
+git tag -a v[VERSION] -m "Version [VERSION]"
+git push -f origin main
+docker buildx build --tag=[LOCATION]-docker.pkg.dev/[PROJECT]/distrviz/distrviz:v[VERSION] .
+docker push [LOCATION]-docker.pkg.dev/[PROJECT]/distrviz/distrviz:v[VERSION]
+ ```
