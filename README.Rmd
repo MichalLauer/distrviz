@@ -26,6 +26,7 @@ available in the [`{distr6}`](https://github.com/xoopR/distr6) package.
 ![](assets/readme_front.png "Normal distribution")
 
 The main features are:
+
  - Support both **discrete** and **continuous** random variables (RV)
  - Interactive chart of **probability distribution function (PDF)**
   - Densities for continuous RV, histograms for discrete RV
@@ -114,7 +115,7 @@ distr6::listDistributions() |>
   gt::as_raw_html()
 ```
 
- # Deploy steps
+# Deploy steps
 
  ```docker
 git tag -a v[VERSION] -m "Version [VERSION]"
