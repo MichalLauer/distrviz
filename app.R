@@ -6,10 +6,10 @@ library(htmltools)
 library(bslib)
 
 library(distr6)
-# library(extraDistr)
-# library(pracma)
-# library(actuar)
-# library(GoFKernel)
+library(extraDistr)
+library(pracma)
+library(actuar)
+library(GoFKernel)
 
 library(glue)
 library(dplyr)
@@ -172,8 +172,5 @@ server <- function(input, output, session) {
 
 }
 
-shinyApp(ui, server, options = list(
-  launch.browser = F,
-  port = 1234
-))
+shinyApp(ui=ui, server=server)
 

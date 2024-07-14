@@ -25,6 +25,16 @@ available in the [`{distr6}`](https://github.com/xoopR/distr6) package.
 
 ![](assets/readme_front.png "Normal distribution")
 
+The main features are:
+ - Support both **discrete** and **continuous** random variables (RV)
+ - Interactive chart of **probability distribution function (PDF)**
+  - Densities for continuous RV, histograms for discrete RV
+ - Interactive of **cummulative distribution function (CDF)**
+ - **Dynamic recalculation** of parameters
+  - For example, changing the *variance* of a normal distributions update's
+    the standard deviation and precision.
+ - Basich characteristics
+
 ## Imlemented distributions
 
 ```{r include=F}
@@ -112,3 +122,4 @@ List of things I'd like to implement/fix in the near future:
  - fix iv javascript error on load
  - Weighted kinda? works
  - add `Kappa` and `Omega` parametrization to `beta`
+ - Comparison of distributions from the same family

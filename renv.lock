@@ -16,6 +16,28 @@
       "Repository": "RSPM",
       "Hash": "a8235afbcd6316e6e91433ea47661013"
     },
+    "GoFKernel": {
+      "Package": "GoFKernel",
+      "Version": "2.1-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "KernSmooth",
+        "stats"
+      ],
+      "Hash": "fcfde62a0ba86bdb8fd6d2b900eb4713"
+    },
+    "KernSmooth": {
+      "Package": "KernSmooth",
+      "Version": "2.23-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "stats"
+      ],
+      "Hash": "8dcfa99b14c296bc9f1fd64d52fd3ce7"
+    },
     "MASS": {
       "Package": "MASS",
       "Version": "7.3-58.4",
@@ -90,6 +112,19 @@
         "utils"
       ],
       "Hash": "ca98390ad1cef2a5a609597b49d3d042"
+    },
+    "actuar": {
+      "Package": "actuar",
+      "Version": "3.3-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "expint",
+        "graphics",
+        "stats"
+      ],
+      "Hash": "31c925f608675e450657c4622bd68b68"
     },
     "anytime": {
       "Package": "anytime",
@@ -313,7 +348,7 @@
       "RemoteUsername": "alan-turing-institute",
       "RemoteRepo": "distr6",
       "RemoteRef": "main",
-      "RemoteSha": "95d7359fb85698529981bf66da7674d3b8c00e6c",
+      "RemoteSha": "a642cd312c51fba7ede7336036f907dbe279889e",
       "RemoteHost": "api.github.com",
       "Remotes": "xoopR/set6, xoopR/param6",
       "Requirements": [
@@ -326,7 +361,7 @@
         "set6",
         "stats"
       ],
-      "Hash": "8d0b99937f90328e65701d912332ffef"
+      "Hash": "32caf03bec8e982f2e28d854d81b11b0"
     },
     "dplyr": {
       "Package": "dplyr",
@@ -361,6 +396,27 @@
         "methods"
       ],
       "Hash": "a1066cbc05caee9a4bf6d90f194ff4da"
+    },
+    "expint": {
+      "Package": "expint",
+      "Version": "0.1-8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "57208be351e926869d7121aca0c80a9b"
+    },
+    "extraDistr": {
+      "Package": "extraDistr",
+      "Version": "1.10.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp"
+      ],
+      "Hash": "49235792aad38657fffef40802f614c5"
     },
     "fansi": {
       "Package": "fansi",
@@ -877,6 +933,20 @@
       ],
       "Hash": "a1ac5c03ad5ad12b9d1597e00e23c3dd"
     },
+    "pracma": {
+      "Package": "pracma",
+      "Version": "2.4.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "R",
+        "grDevices",
+        "graphics",
+        "stats",
+        "utils"
+      ],
+      "Hash": "44bc172d47d1ea0a638d9f299e321203"
+    },
     "promises": {
       "Package": "promises",
       "Version": "1.3.0",
@@ -947,7 +1017,7 @@
       "Package": "renv",
       "Version": "1.0.7",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "utils"
       ],
